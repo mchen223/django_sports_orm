@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Sports Leagues</title>
+	</head>
+	<body>
+		<p>Filter:</p>
+		<form action="/filter" method="POST">
+			{% csrf_token %}
+		<select name="views">
+			<option value="0">All leagues, teams, and players</option>
+		   <option value="1">baseball leagues</option>
+		   <option value="2">womens' leagues</option>
+		   <option value="3">leagues where sport is any type of hockey</option>
+		   <option value="4">leagues where sport is something OTHER THAN football</option>
+			<option value="5">leagues that call themselves "conferences"</option>
+		   <option value="6">leagues in the Atlantic region</option>
+		   <option value="7">teams based in Dallas</option>
+		   <option value="8">teams named the Raptors</option>
+			<option value="9">teams whose location includes "City"</option>
+		   <option value="10">teams whose names begin with "T"</option>
+		   <option value="11">teams, ordered alphabetically by location</option>
+		   <option value="12">teams, ordered by team name in reverse alphabetical order</option>
+			<option value="13">every player with last name "Cooper"</option>
+		   <option value="14">every player with first name "Joshua"</option>
+		   <option value="15">every player with last name "Cooper" EXCEPT those with "Joshua" as the first name</option>
+		   <option value="16">all players with first name "Alexander" OR first name "Wyatt"</option>
+		</select>
+		<input type="submit" value="Submit">
+		</form>
+
+
+	   <h3>{{ message }}</h3>
+
+
+		{% if leagues %}
+		<h1>Leagues</h1>
+		<ol>
+			{% for league in leagues %}
+				<li>{{league.name}}</li>
+			{% endfor %}
+		</ol>
+		{% endif %}
+		{% if teams %}
+		<h1>Teams</h1>
+		<ol>
+			{% for team in teams %}
+				<li>{{team.location}} {{team.team_name}}</li>
+			{% endfor %}
+		</ol>
+		{% endif %}
+		{% if players %}
+		<h1>Players</h1>
+		<ol>
+			{% for player in players %}
+				<li>{{player.first_name}} {{player.last_name}}</li>
+			{% endfor %}
+		</ol>
+		{% endif %}
+	</body>
+</html>
